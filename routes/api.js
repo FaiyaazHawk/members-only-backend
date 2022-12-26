@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
+const message_controller = require("../controllers/messagecontroller");
+
+
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+router.get('/', message_controller.all_messages);
 //GET login page
 router.get('/login', function(req, res, next) {
   res.send("login page");
@@ -17,6 +18,11 @@ router.post('/login', function(req,res,next){
 router.get('/messages', function(req,res,next){
   res.send("all messages")
 })
+//GET a message
+router.get('/messages/:messageid', function (req,res,next) {
+  res.send('pull single message')
+})
+
 // GET message create page
 router.get('/createmessage', function (req,res,next) {
   res.send("create message get")
