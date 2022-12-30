@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const MessageSchema = new Schema({
     title: {type:String, required:true, maxLength: 100},
     timestamp:{type:Date, default:Date.now},
-    message:{type:String, required:true, maxLength: 1000},
+    message:{type:String, maxLength: 1000},
     author:{type:Schema.Types.ObjectId, ref: "User"}
 });
 //virtual functions
