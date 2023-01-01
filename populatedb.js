@@ -25,7 +25,7 @@ var messages = []
 //function to create message
 
 function messageCreate(title, timestamp, message, author, cb) {
-    messageDetails = {title:title, timestamp:timestamp, mesage:message, author:author}
+    messageDetails = {title:title, timestamp:timestamp, message:message, author:author}
 
     let mess = new Message(messageDetails) 
     mess.save(function (err) {

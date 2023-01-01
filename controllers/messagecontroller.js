@@ -10,6 +10,16 @@ exports.all_messages = (req,res,next) => {
                 return next(err);
             }
             res.json(messages)
-            console.log('messages sent')
+        })
+}
+//get a single message
+
+exports.get_message = (req,res,next) => {
+    Message.findById(req.params.id)
+        .exec(function (err,message) {
+            if (err) {
+                return next(err)
+            }
+            res.json(message)
         })
 }
