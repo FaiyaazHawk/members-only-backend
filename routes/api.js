@@ -20,6 +20,9 @@ router.post('/login', function(req,res,next){
   res.send("successful login")
 })
 
+//GET error page
+router.get ('/error', auth_controller.error_message);
+
 //GET signup page
 router.get('/signup', user_controller.signup_get)
 //POST signup page
