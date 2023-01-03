@@ -34,13 +34,9 @@ router.get('/messages', message_controller.all_messages)
 router.get('/messages/:messageid', message_controller.get_message)
 
 // GET message create page
-router.get('/createmessage', function (req,res,next) {
-  res.send("create message get")
-})
+router.get('/createmessage', message_controller.createMessage_get)
 //POST message create page
-router.post('/createmessage', function (req,res,next){
-  res.send("create message post")
-})
+router.post('/createmessage', message_controller.createMessage_post)
 
 
 module.exports = router;

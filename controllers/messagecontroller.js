@@ -1,4 +1,5 @@
 const Message = require("../models/message")
+const {body, validationResult} = require('express-validator')
 const async = require("async")
 
 //get all messages and display
@@ -23,3 +24,28 @@ exports.get_message = (req,res,next) => {
             res.json(message)
         })
 }
+
+exports.createMessage_get = (req,res,next) => {
+    res.send('create message page')
+}
+
+exports.createMessage_post = [
+    body("title").trim().isLength({min:1}).escape().withMessage("Title is required"),
+    body("message").trim().isLength({min:1}).escape().withMessage("Message is required"),
+
+    async (req,res,next) => {
+        //error validation
+        const errors = validationResult(req);
+        if(!errors.isEmpty()) {
+            console.log('errors present')
+            return res.redirect('/error') //send to error page
+        }
+        //create new message
+        const message = new Message({
+            title:req.body.title,
+            message:req.body.message,
+            author: req.body.author, //find where author status is stored with passport js
+        });
+        message.save(err => err ? next(err) : res.redirect('/'))
+    }
+]
