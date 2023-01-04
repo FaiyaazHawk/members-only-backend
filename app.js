@@ -2,11 +2,16 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var cors = require('cors')
+var cors = require('cors');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var crypto = require('crypto');
 
 //routers
 var indexRouter = require('./routes/api');
 
+//models
+const User = require('./models/user');
 
 var app = express();
 
@@ -26,7 +31,19 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//routes
+//passportjs config
+passport.use(new LocalStrategy(
+    function(email, password, done) {
+        User.findOne({email: email}), function (err, user) {
+            if(err) {return done(err);}
+            if(!user) {return done(null, false);}
+            if(!user.verifyPassword(password)) {return done(null,false);}
+            return done(null, user);
+        }
+    }
+))
+
+//route
 app.use('/', indexRouter);
 
 

@@ -16,9 +16,7 @@ router.get('/users', user_controller.all_users);
 //GET login page
 router.get('/login', auth_controller.get_login);
 //POST login page
-router.post('/login', function(req,res,next){
-  res.send("successful login")
-})
+router.post('/login', auth_controller.post_login)
 
 //GET error page
 router.get ('/error', auth_controller.error_message);

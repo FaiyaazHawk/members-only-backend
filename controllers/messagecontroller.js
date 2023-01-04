@@ -44,7 +44,7 @@ exports.createMessage_post = [
         const message = new Message({
             title:req.body.title,
             message:req.body.message,
-            author: req.body.author, //find where author status is stored with passport js
+            author: req.locals.currentUser, //find where author status is stored with passport js
         });
         message.save(err => err ? next(err) : res.redirect('/'))
     }
